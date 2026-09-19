@@ -1,8 +1,10 @@
-import express from "express"
-import cors from "cors"
-import helmet from "helmet"
-import session from "express-session"
-import MongoStore from "connect-mongo"
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
 
@@ -30,13 +32,21 @@ app.use(
 );
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+);
 
 app.use(
   session({
     name: "secureid.sid",
+
     secret: process.env.SESSION_SECRET,
+
     resave: false,
+
     saveUninitialized: false,
 
     store: MongoStore.create({
@@ -46,11 +56,24 @@ app.use(
 
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 1000 * 60 * 60
+
+      secure:
+        process.env.NODE_ENV === "production",
+
+      sameSite:
+        process.env.NODE_ENV === "production"
+          ? "none"
+          : "lax",
+
+      maxAge:
+        1000 * 60 * 60
     }
   })
 );
+
+/*
+ * Authentication routes
+ */
+app.use("/api", authRoutes);
 
 export default app;
