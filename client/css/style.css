@@ -1,3 +1,39 @@
+/* =========================================================
+   SecureID - Registration UI
+   Phase 2
+   ========================================================= */
+
+:root {
+  --primary: #173fd5;
+  --primary-dark: #1232b5;
+  --primary-light: #eef2ff;
+
+  --text: #111827;
+  --text-secondary: #6b7280;
+  --text-light: #9ca3af;
+
+  --border: #dfe3eb;
+  --background: #ffffff;
+  --surface: #f8faff;
+
+  --success: #16a34a;
+  --success-light: #ecfdf3;
+
+  --error: #dc2626;
+  --error-light: #fff1f2;
+
+  --warning: #d97706;
+  --warning-light: #fff7ed;
+
+  --radius: 10px;
+
+  --shadow: 0 20px 50px rgba(20, 45, 110, 0.08);
+}
+
+/* =========================================================
+   Reset
+   ========================================================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +46,842 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
   background: #ffffff;
-  color: #111827;
+  color: var(--text);
+}
+
+/* =========================================================
+   Application
+   ========================================================= */
+
+#app {
+  min-height: 100vh;
+}
+
+/* =========================================================
+   Desktop Layout
+   ========================================================= */
+
+.auth-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 38% 62%;
+  background: #ffffff;
+}
+
+.auth-brand {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #5d8df5 0%,
+      #3157dc 48%,
+      #213dcc 100%
+    );
+
+  color: #ffffff;
+}
+
+.auth-brand::before {
+  content: "";
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  top: -180px;
+  left: -180px;
+}
+
+.auth-brand::after {
+  content: "";
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  bottom: -160px;
+  right: -140px;
+}
+
+.brand-content {
+  position: relative;
+  z-index: 1;
+
+  max-width: 330px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 60px;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.brand-shield {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.16);
+
+  font-size: 18px;
+}
+
+.brand-content h2 {
+  font-size: 34px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.brand-content p {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* =========================================================
+   Main Authentication Area
+   ========================================================= */
+
+.auth-main {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px 32px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* =========================================================
+   Progress
+   ========================================================= */
+
+.progress {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 42px;
+}
+
+.progress-step {
+  width: 30px;
+  height: 30px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  border: 1px solid var(--border);
+
+  color: var(--text-light);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  background: #ffffff;
+}
+
+.progress-step.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.progress-step.completed {
+  background: var(--success);
+  border-color: var(--success);
+  color: #ffffff;
+}
+
+.progress-line {
+  flex: 1;
+
+  height: 2px;
+
+  background: #e5e7eb;
+}
+
+.progress-line.completed {
+  background: var(--primary);
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-icon {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 22px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+
+  font-size: 28px;
+}
+
+.page-icon.error {
+  background: var(--error-light);
+  color: var(--error);
+}
+
+.page-icon.success {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.page-icon.warning {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.page-header h1 {
+  font-size: 25px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   Form
+   ========================================================= */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: var(--text);
+}
+
+.form-input {
+  width: 100%;
+
+  height: 46px;
+
+  padding: 0 14px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  outline: none;
+
+  color: var(--text);
+  background: #ffffff;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 3px rgba(23, 63, 213, 0.08);
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .form-input {
+  padding-right: 48px;
+}
+
+.password-toggle {
+  position: absolute;
+
+  top: 50%;
+  right: 14px;
+
+  transform: translateY(-50%);
+
+  border: 0;
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  cursor: pointer;
+
+  font-size: 16px;
+}
+
+/* =========================================================
+   Mobile Input
+   ========================================================= */
+
+.phone-row {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 10px;
+}
+
+.country-code {
+  height: 46px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  background: #ffffff;
+
+  padding: 0 10px;
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   Password Requirements
+   ========================================================= */
+
+.password-requirements {
+  margin-top: 12px;
+  padding: 14px;
+
+  border-radius: 8px;
+
+  background: var(--surface);
+}
+
+.password-requirements-title {
+  margin-bottom: 10px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.requirement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 6px;
+
+  font-size: 12px;
+
+  color: var(--text-secondary);
+}
+
+.requirement:last-child {
+  margin-bottom: 0;
+}
+
+.requirement-icon {
+  width: 16px;
+  height: 16px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  font-size: 10px;
+
+  background: #e5e7eb;
+  color: #9ca3af;
+}
+
+.requirement.valid {
+  color: var(--success);
+}
+
+.requirement.valid .requirement-icon {
+  background: var(--success);
+  color: #ffffff;
+}
+
+/* =========================================================
+   Password Strength
+   ========================================================= */
+
+.strength-container {
+  margin-top: 12px;
+}
+
+.strength-label {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 6px;
+
+  font-size: 12px;
+}
+
+.strength-bars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.strength-bar {
+  height: 4px;
+
+  border-radius: 4px;
+
+  background: #e5e7eb;
+}
+
+.strength-bar.active.weak {
+  background: var(--error);
+}
+
+.strength-bar.active.medium {
+  background: var(--warning);
+}
+
+.strength-bar.active.strong {
+  background: var(--success);
+}
+
+/* =========================================================
+   Checkbox
+   ========================================================= */
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+
+  margin: 18px 0;
+
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.checkbox-row input {
+  margin-top: 2px;
+  accent-color: var(--primary);
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+
+.primary-button {
+  width: 100%;
+  height: 46px;
+
+  border: 0;
+  border-radius: var(--radius);
+
+  background: var(--primary);
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.primary-button:hover {
+  background: var(--primary-dark);
+}
+
+.primary-button:active {
+  transform: translateY(1px);
+}
+
+.secondary-button {
+  width: 100%;
+  height: 46px;
+
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+
+  background: #ffffff;
+  color: var(--primary);
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   OTP
+   ========================================================= */
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+
+  margin: 28px 0;
+}
+
+.otp-input {
+  width: 48px;
+  height: 52px;
+
+  text-align: center;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  outline: none;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: var(--text);
+}
+
+.otp-input:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 3px rgba(23, 63, 213, 0.08);
+}
+
+.otp-message {
+  margin: 15px 0;
+
+  text-align: center;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.otp-message.error {
+  color: var(--error);
+}
+
+.otp-message.success {
+  color: var(--success);
+}
+
+.otp-timer {
+  text-align: center;
+
+  margin-bottom: 18px;
+
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.otp-timer strong {
+  color: var(--primary);
+}
+
+.resend {
+  display: block;
+
+  margin: 0 auto 25px;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--primary);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   MFA Method Cards
+   ========================================================= */
+
+.method-list {
+  display: grid;
+  gap: 12px;
+
+  margin: 28px 0;
+}
+
+.method-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: border-color 0.2s ease;
+}
+
+.method-card:hover,
+.method-card.selected {
+  border-color: var(--primary);
+}
+
+.method-icon {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+}
+
+.method-content {
+  flex: 1;
+}
+
+.method-content strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 14px;
+}
+
+.method-content span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.method-radio {
+  width: 18px;
+  height: 18px;
+
+  accent-color: var(--primary);
+}
+
+/* =========================================================
+   QR
+   ========================================================= */
+
+.qr-container {
+  width: 190px;
+  height: 190px;
+
+  margin: 28px auto;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: #ffffff;
+}
+
+.qr-placeholder {
+  width: 150px;
+  height: 150px;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #111 0,
+      #111 3px,
+      #fff 3px,
+      #fff 6px
+    );
+
+  color: transparent;
+}
+
+/* =========================================================
+   Success
+   ========================================================= */
+
+.success-list {
+  display: grid;
+  gap: 12px;
+
+  margin: 25px 0;
+}
+
+.success-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+
+  color: var(--success);
+}
+
+.success-check {
+  width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--success-light);
+}
+
+/* =========================================================
+   Footer Text
+   ========================================================= */
+
+.bottom-text {
+  margin-top: 20px;
+
+  text-align: center;
+
+  color: var(--text-secondary);
+
+  font-size: 12px;
+}
+
+.text-button {
+  border: 0;
+  background: transparent;
+
+  color: var(--primary);
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-brand {
+    display: none;
+  }
+
+  .auth-main {
+    min-height: 100vh;
+    padding: 30px 20px;
+  }
+
+  .auth-container {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 520px) {
+  .auth-main {
+    padding: 24px 16px;
+    align-items: flex-start;
+  }
+
+  .auth-container {
+    padding-top: 20px;
+  }
+
+  .progress {
+    margin-bottom: 32px;
+  }
+
+  .page-header {
+    margin-bottom: 24px;
+  }
+
+  .page-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .otp-container {
+    gap: 6px;
+  }
+
+  .otp-input {
+    width: 42px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 360px) {
+  .otp-input {
+    width: 38px;
+    height: 45px;
+  }
+
+  .phone-row {
+    grid-template-columns: 82px 1fr;
+  }
 }
